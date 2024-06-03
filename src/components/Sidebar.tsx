@@ -126,7 +126,7 @@ export default function Sidebar() {
       <div className="w-full" style={{ width: '100%' }}>
         <Menu
           theme="dark"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={['supplier']}
           mode="inline"
           items={items}
           style={{
