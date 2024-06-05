@@ -76,7 +76,7 @@ export default function App() {
     >
       <Card
         style={{
-          width: screens.xs ? '250px' : '450px',
+          width: screens.xs ? '280px' : '450px',
           margin: '0 auto',
           border: '1px solid #ccc',
           borderRadius: '10px',
@@ -88,7 +88,7 @@ export default function App() {
             alignItems: 'center',
             backgroundColor: token.colorBgContainer,
             display: 'flex',
-            // height: screens.sm ? '90vh' : 'auto',
+            height: screens.xs ? '60vh' : 'auto',
             padding: screens.md ? `${token.sizeXXL}px 0px` : '0px',
           }}
         >
