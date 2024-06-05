@@ -76,7 +76,7 @@ export default function App() {
     >
       <Card
         style={{
-          width: '450px',
+          width: screens.xs ? '250px' : '450px',
           margin: '0 auto',
           border: '1px solid #ccc',
           borderRadius: '10px',

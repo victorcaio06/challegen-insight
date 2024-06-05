@@ -1,12 +1,15 @@
 'use client';
 
 import { UserOutlined } from '@ant-design/icons';
-import { Button, Layout, Menu, MenuProps, message, theme } from 'antd';
+import { Button, Grid, Layout, Menu, MenuProps, message, theme } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
 
 type MenuItem = Required<MenuProps>['items'][number];
+const { useBreakpoint } = Grid;
 
 export default function Home() {
+  const screens = useBreakpoint();
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -67,7 +70,6 @@ export default function Home() {
           mode="horizontal"
           defaultSelectedKeys={['0']}
           items={items}
-          
           style={{ flex: 1, minWidth: 0 }}
         />
         <Button icon={<UserOutlined />} iconPosition="start" href="/login">
@@ -78,7 +80,7 @@ export default function Home() {
         <div
           style={{
             background: colorBgContainer,
-            minHeight: '678px',
+            minHeight: screens.xs ? '591px' : '678px',
             padding: 24,
             // borderRadius: borderRadiusLG,
             backgroundImage:
