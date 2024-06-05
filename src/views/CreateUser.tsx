@@ -91,7 +91,7 @@ export default function CreateUser() {
       alignItems: 'center',
       backgroundColor: token.colorBgContainer,
       display: 'flex',
-      height: screens.sm ? '100vh' : 'auto',
+      height: screens.xs ? '100vh' : 'auto',
       padding: screens.md ? `${token.sizeXXL}px 0px` : '0px',
     },
     text: {
@@ -116,7 +116,7 @@ export default function CreateUser() {
     >
       <Card
         style={{
-          width: '450px',
+          // width: '380px',
           margin: '0 auto',
           border: '1px solid #ccc',
           borderRadius: '10px',
@@ -139,7 +139,7 @@ export default function CreateUser() {
               padding: screens.md
                 ? `${token.paddingXL}px`
                 : `${token.sizeXXL}px ${token.padding}px`,
-              width: '380px',
+              // width: '380px',
             }}
           >
             <div
