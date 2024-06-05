@@ -163,7 +163,7 @@ export default function App() {
                 <Checkbox>Remember me</Checkbox>
               </Form.Item> */}
                 <a style={{ float: 'right' }} href="">
-                  Forgot password?
+                  Esqueceu a senha?
                 </a>
               </Form.Item>
               <Form.Item style={{ marginBottom: '0px' }}>
@@ -178,7 +178,7 @@ export default function App() {
                   }}
                 >
                   <Text style={styles.text}>Não tem uma conta? </Text>{' '}
-                  <Link href="">Inscreva-se agora</Link>
+                  <Link href="/create">Inscreva-se agora</Link>
                 </div>
               </Form.Item>
             </Form>
