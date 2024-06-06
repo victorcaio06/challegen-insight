@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: 'Name, email and password are required!',
+        message: 'E-mail and password are required!',
         data: '',
       },
       { status: 400 }

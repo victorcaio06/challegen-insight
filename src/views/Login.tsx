@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Button,
   Card,
   Checkbox,
   Form,
+  FormProps,
   Grid,
   Input,
   theme,
@@ -15,17 +16,41 @@ import {
 
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import Image from 'next/image';
+import { login } from '@/actions/login';
+import { useRouter } from 'next/navigation';
 
 const { useToken } = theme;
 const { useBreakpoint } = Grid;
 const { Text, Title, Link } = Typography;
 
+type FieldType = {
+  email: string;
+  password: string;
+};
+
 export default function App() {
   const { token } = useToken();
+  const [loading, setLoading] = useState(false);
   const screens = useBreakpoint();
 
-  const onFinish = (values: any) => {
+  const router = useRouter();
+
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    setLoading(true);
+
     console.log('Received values of form: ', values);
+
+    const response = await login(values.email, values.password);
+
+    if (response?.error !== '') {
+      alert(response?.error);
+      setLoading(false);
+    } else if (response.data !== null && response.ok) {
+      setLoading(false);
+      console.log('🚀 ~ onFinish ~ response.data:', response.data);
+      router.push('/fornecedores');
+      return;
+    }
   };
 
   const styles = {
@@ -137,18 +162,18 @@ export default function App() {
                   {
                     type: 'email',
                     required: true,
-                    message: 'Please input your Email!',
+                    message: 'Por favor insira seu e-mail!',
                   },
                 ]}
               >
-                <Input prefix={<MailOutlined />} placeholder="Email" />
+                <Input prefix={<MailOutlined />} placeholder="E-mail" />
               </Form.Item>
               <Form.Item
                 name="password"
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your Password!',
+                    message: 'Por favor insira sua senha!',
                   },
                 ]}
               >
@@ -167,7 +192,13 @@ export default function App() {
                 </a>
               </Form.Item>
               <Form.Item style={{ marginBottom: '0px' }}>
-                <Button block type="primary" htmlType="submit">
+                <Button
+                  block
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  disabled={loading}
+                >
                   Log in
                 </Button>
                 <div
