@@ -1,5 +1,6 @@
 'use client';
 
+import createSupplier, { SupplierData } from '@/actions/createSupplier';
 import { brazilianStates } from '@/utils/brazilianStates';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import {
@@ -11,8 +12,10 @@ import {
   Input,
   Row,
   Select,
+  message,
 } from 'antd';
 import Title from 'antd/es/typography/Title';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
@@ -20,17 +23,54 @@ type LayoutType = Parameters<typeof Form>[0]['layout'];
 const SupplierRegistration: React.FC = () => {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
+  const router = useRouter();
 
   const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
     return null;
   };
 
   type FieldType = {
-    nameSupplier: string;
+    accountBank: string | undefined;
+    accountType: string | undefined;
+    agency: string | undefined;
+    bank: string | undefined;
+    cellPhone: string | undefined;
+    city: string | undefined;
+    cnpj: string | undefined;
+    contactPerson: string | undefined;
+    contactPosition: string | undefined;
+    cpf: string | undefined;
+    publicPlace: string | undefined;
+    keyPix: string | undefined;
+    landline: string | undefined;
+    municipalRegistration: string | undefined;
+    nameSupplier: string | undefined;
+    neighborhood: string | undefined;
+    number: string | undefined;
+    observations: string | undefined;
+    state: string | undefined;
+    stateRegistration: string | undefined;
   };
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+  const onFinish: FormProps<SupplierData>['onFinish'] = async (values) => {
     console.log('Success:', values);
+
+    if (values.cnpj === undefined && values.cpf === undefined) {
+      message.error('Preencha o CNPJ OU o CPF!');
+
+      return;
+    }
+
+    const response = await createSupplier(values);
+
+    if (response) {
+      if (response.ok) {
+        return router.push('/fornecedores');
+      }
+
+      message.error(response.error);
+      return;
+    }
   };
 
   const formItemLayout =
@@ -71,8 +111,10 @@ const SupplierRegistration: React.FC = () => {
           }
         }
         onFinish={onFinish}
-        onFinishFailed={() => {
-          console.log('Failed');
+        onFinishFailed={(values) => {
+          console.log('🚀 ~ values:', values);
+
+          message.error('Preencha todos os campos obrigatórios!');
         }}
         autoComplete="off"
       >
@@ -85,8 +127,13 @@ const SupplierRegistration: React.FC = () => {
             xl={{ flex: '40%' }}
             offset={0}
           >
-            <Form.Item label="Nome do fornecedor" name="nameSupplier" required>
-              <Input placeholder="input placeholder" />
+            <Form.Item
+              label="Nome do fornecedor"
+              name="nameSupplier"
+              required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
+            >
+              <Input placeholder="input placeholder" autoComplete="off" />
             </Form.Item>
           </Col>
 
@@ -97,7 +144,7 @@ const SupplierRegistration: React.FC = () => {
             lg={{ flex: '20%' }}
             xl={{ flex: '40%' }}
           >
-            <Form.Item label="Inscrição estadual" required>
+            <Form.Item label="Inscrição estadual" name="stateRegistration">
               <Input placeholder="input placeholder" />
             </Form.Item>
           </Col>
@@ -113,6 +160,7 @@ const SupplierRegistration: React.FC = () => {
           >
             <Form.Item
               label="Inscrição municipal"
+              name="municipalRegistration"
               tooltip={{
                 title: 'Opcional',
                 icon: <InfoCircleOutlined />,
@@ -128,9 +176,8 @@ const SupplierRegistration: React.FC = () => {
             md={{ flex: '40%' }}
             lg={{ flex: '20%' }}
             xl={{ flex: '40%' }}
-            // offset={0}
           >
-            <Form.Item label="CNPJ" name="cnpj" required>
+            <Form.Item label="CNPJ" name="cnpj">
               <Input placeholder="input placeholder" />
             </Form.Item>
           </Col>
@@ -146,7 +193,7 @@ const SupplierRegistration: React.FC = () => {
           >
             <Form.Item
               label="CPF"
-              required={false}
+              name="cpf"
               tooltip={{
                 title: 'Campo válido apenas para fornecedores que não CNPJ',
                 icon: <InfoCircleOutlined />,
@@ -169,7 +216,12 @@ const SupplierRegistration: React.FC = () => {
             lg={{ flex: '20%' }}
             xl={{ flex: '50%' }}
           >
-            <Form.Item label="Logadouro" name="endereco" required>
+            <Form.Item
+              label="Logadouro"
+              name="publicPlace"
+              required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -185,8 +237,9 @@ const SupplierRegistration: React.FC = () => {
               label="Numero"
               labelCol={{ span: 5, offset: 2 }}
               labelAlign="left"
-              name="address"
+              name="number"
               required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
             >
               <Input />
             </Form.Item>
@@ -201,7 +254,12 @@ const SupplierRegistration: React.FC = () => {
             lg={{ flex: '20%' }}
             xl={{ flex: '35%' }}
           >
-            <Form.Item label="Bairro" name="neighborhood" required>
+            <Form.Item
+              label="Bairro"
+              name="neighborhood"
+              required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -219,6 +277,7 @@ const SupplierRegistration: React.FC = () => {
               labelAlign="left"
               name="city"
               required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
             >
               <Input />
             </Form.Item>
@@ -237,6 +296,7 @@ const SupplierRegistration: React.FC = () => {
               labelAlign="left"
               name="state"
               required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
             >
               <Select
                 showSearch
@@ -267,7 +327,12 @@ const SupplierRegistration: React.FC = () => {
             lg={{ flex: '20%' }}
             xl={{ flex: '30%' }}
           >
-            <Form.Item label="Telefone celular" name="cellPhone" required>
+            <Form.Item
+              label="Telefone celular"
+              name="cellPhone"
+              required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -284,7 +349,6 @@ const SupplierRegistration: React.FC = () => {
               labelCol={{ span: 6.5, offset: 1 }}
               labelAlign="left"
               name="landline"
-              required
             >
               <Input />
             </Form.Item>
@@ -303,7 +367,12 @@ const SupplierRegistration: React.FC = () => {
             lg={{ flex: '20%' }}
             xl={{ flex: '30%' }}
           >
-            <Form.Item label="Banco" name="bank" required>
+            <Form.Item
+              label="Banco"
+              name="bank"
+              required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
+            >
               <Input placeholder="Nome do banco" />
             </Form.Item>
           </Col>
@@ -321,6 +390,7 @@ const SupplierRegistration: React.FC = () => {
               labelAlign="left"
               name="agency"
               required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
             >
               <Input />
             </Form.Item>
@@ -356,7 +426,12 @@ const SupplierRegistration: React.FC = () => {
             lg={{ flex: '20%' }}
             xl={{ flex: '30%' }}
           >
-            <Form.Item label="Conta" name="accountBank" required>
+            <Form.Item
+              label="Conta"
+              name="accountBank"
+              required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
+            >
               <Input placeholder="Digite o número da conta" />
             </Form.Item>
           </Col>
@@ -369,42 +444,20 @@ const SupplierRegistration: React.FC = () => {
             xl={{ flex: '30%' }}
           >
             <Form.Item
-              label="Tipo da conta"
+              label="Tipo de conta"
               labelCol={{ span: 6.5, offset: 1 }}
               labelAlign="left"
               name="accountType"
               required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
             >
               <Select
-                defaultValue="current"
                 style={{ width: 150 }}
                 options={[
                   { value: 'current', label: 'Conta corrente' },
                   { value: 'savings', label: 'Conta poupança' },
                 ]}
               />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col
-            xs={{ flex: '80%' }}
-            sm={{ flex: '50%' }}
-            md={{ flex: '40%' }}
-            lg={{ flex: '20%' }}
-            xl={{ flex: '30%' }}
-          >
-            <Form.Item
-              label="Chave PIX"
-              name="keyPix"
-              tooltip={{
-                title:
-                  'Opcional. PIX para transações sem ser por conta bancária',
-                icon: <InfoCircleOutlined />,
-              }}
-            >
-              <Input placeholder="CPF, CNPJ, EMAIL, TELEFONE, etc" />
             </Form.Item>
           </Col>
         </Row>
@@ -421,7 +474,12 @@ const SupplierRegistration: React.FC = () => {
             lg={{ flex: '20%' }}
             xl={{ flex: '45%' }}
           >
-            <Form.Item label="Pessoa de contato" name="contactPerson" required>
+            <Form.Item
+              label="Pessoa de contato"
+              name="contactPerson"
+              required
+              rules={[{ required: true, message: 'Preencha o campo!' }]}
+            >
               <Input placeholder="Nome completo" />
             </Form.Item>
           </Col>
@@ -438,7 +496,6 @@ const SupplierRegistration: React.FC = () => {
               labelCol={{ span: 6.5, offset: 1 }}
               labelAlign="left"
               name="contactPosition"
-              required
             >
               <Input placeholder="Ex: Gerente" />
             </Form.Item>

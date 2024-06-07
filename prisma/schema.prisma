@@ -28,7 +28,7 @@ model User {
 model Supplier {
   id String @default(uuid())
 
-  name                   String
+  name                   String  @unique
   state_registration     String?
   municipal_registration String?
   cnpj                   String? @unique
@@ -40,9 +40,9 @@ model Supplier {
   city         String
   state        String
   cell_phone   String
-  landline     String
+  landline     String?
 
-  banck        String
+  bank         String
   agency       String
   key_pix      String? @unique
   account      String
@@ -51,6 +51,9 @@ model Supplier {
   contact_person   String
   contact_position String?
   observation      String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@id([id])
   @@map("suppliers")
