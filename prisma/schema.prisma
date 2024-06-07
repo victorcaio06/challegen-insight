@@ -24,3 +24,34 @@ model User {
   @@unique([email])
   @@map("users")
 }
+
+model Supplier {
+  id String @default(uuid())
+
+  name                   String
+  state_registration     String?
+  municipal_registration String?
+  cnpj                   String? @unique
+  cpf                    String? @unique
+
+  public_place String
+  number       String
+  neighborhood String
+  city         String
+  state        String
+  cell_phone   String
+  landline     String
+
+  banck        String
+  agency       String
+  key_pix      String? @unique
+  account      String
+  account_type String
+
+  contact_person   String
+  contact_position String?
+  observation      String?
+
+  @@id([id])
+  @@map("suppliers")
+}
