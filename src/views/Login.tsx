@@ -14,7 +14,7 @@ import {
   Typography,
 } from 'antd';
 
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { LockOutlined, LoginOutlined, MailOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import { login } from '@/actions/login';
 import { useRouter } from 'next/navigation';
@@ -38,8 +38,6 @@ export default function App() {
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     setLoading(true);
 
-    console.log('Received values of form: ', values);
-
     const response = await login(values.email, values.password);
 
     if (response?.error !== '') {
@@ -47,7 +45,6 @@ export default function App() {
       setLoading(false);
     } else if (response.data !== null && response.ok) {
       setLoading(false);
-      console.log('🚀 ~ onFinish ~ response.data:', response.data);
       router.push('/fornecedores');
       return;
     }
@@ -198,8 +195,10 @@ export default function App() {
                   htmlType="submit"
                   loading={loading}
                   disabled={loading}
+                  icon={<LoginOutlined />}
+                  iconPosition="start"
                 >
-                  Log in
+                  Entrar
                 </Button>
                 <div
                   style={{
