@@ -1,9 +1,13 @@
-import AppHeader from '@/components/AppHeader';
-import { ConfigProvider, Layout } from 'antd';
-import { Content } from 'antd/es/layout/layout';
+import { Layout } from 'antd';
 import dynamic from 'next/dynamic';
 
 const Sidebar = dynamic(() => import('@/components/Sidebar'), { ssr: false });
+const AppHeader = dynamic(() => import('@/components/AppHeader'), {
+  ssr: false,
+});
+const Content = dynamic(() => import('antd/es/layout/layout'), {
+  ssr: false,
+});
 
 export default function SupplierLayout({
   children,

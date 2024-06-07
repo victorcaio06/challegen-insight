@@ -4,10 +4,12 @@ import { Button, Empty } from 'antd';
 
 interface PageWithoutContentProps {
   message: string;
+  to: string;
 }
 
 export default function PageWithoutContent({
   message,
+  to,
 }: PageWithoutContentProps) {
   return (
     <div
@@ -15,7 +17,9 @@ export default function PageWithoutContent({
       className="!flex !flex-1 !flex-col !items-center !justify-center h-full"
     >
       <Empty description={message ?? 'Nenhum conteúdo encontrado!'}>
-        <Button type="primary">Crie um agora!</Button>
+        <Button type="primary" href={to}>
+          Crie um agora!
+        </Button>
       </Empty>
     </div>
   );
