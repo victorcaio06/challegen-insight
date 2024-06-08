@@ -133,7 +133,7 @@ const SupplierRegistration: React.FC = () => {
               required
               rules={[{ required: true, message: 'Preencha o campo!' }]}
             >
-              <Input placeholder="input placeholder" autoComplete="off" />
+              <Input />
             </Form.Item>
           </Col>
 
@@ -145,7 +145,7 @@ const SupplierRegistration: React.FC = () => {
             xl={{ flex: '40%' }}
           >
             <Form.Item label="Inscrição estadual" name="stateRegistration">
-              <Input placeholder="input placeholder" />
+              <Input />
             </Form.Item>
           </Col>
         </Row>
@@ -178,7 +178,7 @@ const SupplierRegistration: React.FC = () => {
             xl={{ flex: '40%' }}
           >
             <Form.Item label="CNPJ" name="cnpj">
-              <Input placeholder="input placeholder" />
+              <Input />
             </Form.Item>
           </Col>
         </Row>
