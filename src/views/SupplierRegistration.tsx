@@ -23,6 +23,7 @@ type LayoutType = Parameters<typeof Form>[0]['layout'];
 const SupplierRegistration: React.FC = () => {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
@@ -53,7 +54,7 @@ const SupplierRegistration: React.FC = () => {
   };
 
   const onFinish: FormProps<SupplierData>['onFinish'] = async (values) => {
-    console.log('Success:', values);
+    setLoading(true);
 
     if (values.cnpj === undefined && values.cpf === undefined) {
       message.error('Preencha o CNPJ OU o CPF!');
@@ -65,10 +66,13 @@ const SupplierRegistration: React.FC = () => {
 
     if (response) {
       if (response.ok) {
+        setLoading(false);
         return router.push('/fornecedores');
       }
 
       message.error(response.error);
+      setLoading(false);
+
       return;
     }
   };
@@ -112,8 +116,6 @@ const SupplierRegistration: React.FC = () => {
         }
         onFinish={onFinish}
         onFinishFailed={(values) => {
-          console.log('🚀 ~ values:', values);
-
           message.error('Preencha todos os campos obrigatórios!');
         }}
         autoComplete="off"
@@ -527,7 +529,7 @@ const SupplierRegistration: React.FC = () => {
           }}
         >
           <Form.Item {...buttonItemLayout}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Adicionar fornecedor
             </Button>
           </Form.Item>
