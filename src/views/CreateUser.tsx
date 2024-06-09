@@ -1,35 +1,22 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import {
-  Button,
-  Card,
-  Checkbox,
-  Form,
-  Grid,
-  Input,
-  theme,
-  Typography,
-} from 'antd';
+import { Button, Form, Grid, Input, message, theme, Typography } from 'antd';
 
+import createUser from '@/actions/createUser';
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import Image from 'next/image';
-import { useFormState, useFormStatus } from 'react-dom';
-import createUser from '@/actions/createUser';
 import { useRouter } from 'next/navigation';
 
 const { useToken } = theme;
 const { useBreakpoint } = Grid;
-const { Text, Title, Link } = Typography;
-
-type Teste = { data: null; ok: boolean; error: string } | undefined;
+const { Title } = Typography;
 
 export default function CreateUser() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<Teste>(undefined);
   const { token } = useToken();
   const screens = useBreakpoint();
 
@@ -39,34 +26,22 @@ export default function CreateUser() {
 
     if (!name || !email || !password) {
       setLoading(false);
-      alert('Name, email and password are required!');
+      message.error('Nome, email e senha são obrigatórios!');
 
       return;
     }
 
     const response = await createUser({ name, email, password });
-    console.log('🚀 ~ onFinish ~ response:', response);
+
     // setData(response);
     if (response?.error !== '') {
       alert(response?.error);
       setLoading(false);
     } else if (response.data !== null && response.ok) {
       setLoading(false);
-      console.log('🚀 ~ onFinish ~ response.data:', response.data);
       return router.push('/fornecedores');
     }
-    // dispatch({ name, email, password });
   };
-
-  // useEffect(() => {
-  //   if(data?.error !== '') {
-  //     alert(data?.error);
-  //   }
-
-  //   if(data?.data !== null) {
-  //     alert(data?.data);
-  //   }
-  // }, [data]);
 
   const styles = {
     container: {
@@ -114,16 +89,6 @@ export default function CreateUser() {
         justifyContent: 'center',
       }}
     >
-      {/* <Card
-        style={{
-          width: screens.xs ? undefined : '380px',
-          // margin: '0 auto',
-          border: '1px solid #ccc',
-          borderRadius: '10px',
-          // height: '80vh',
-          boxShadow: '5px 8px 24px 5px rgba(208, 216, 243, 0.6)',
-        }}
-      > */}
       <section
         style={{
           alignItems: 'center',
@@ -132,10 +97,9 @@ export default function CreateUser() {
           border: '1px solid #ccc',
           borderRadius: '10px',
           boxShadow: '5px 8px 24px 5px rgba(208, 216, 243, 0.6)',
+          padding: screens.md ? `${token.sizeXXL}px 0px` : '0px',
           // height: screens.sm ? '90vh' : 'auto',
           // height: 'auto',
-
-          padding: screens.md ? `${token.sizeXXL}px 0px` : '0px',
         }}
       >
         <div
@@ -164,10 +128,6 @@ export default function CreateUser() {
             />
 
             <Title style={styles.title}>Criar conta</Title>
-            {/* <Text style={styles.text}>
-              Welcome back to AntBlocks UI! Please enter your details below to
-              sign in.
-            </Text> */}
           </div>
           <Form
             name="normal_login"
@@ -177,7 +137,6 @@ export default function CreateUser() {
             onFinish={onFinish}
             layout="vertical"
             requiredMark="optional"
-            // action={action}
           >
             <Form.Item
               name="name"
@@ -186,7 +145,7 @@ export default function CreateUser() {
                 {
                   type: 'string',
                   required: true,
-                  message: 'Please input your name!',
+                  message: 'Digite seu nome!',
                 },
               ]}
             >
@@ -201,8 +160,11 @@ export default function CreateUser() {
               rules={[
                 {
                   type: 'email',
+                  message: 'O e-mail não é um e-mail válido!',
+                },
+                {
                   required: true,
-                  message: 'Please input your Email!',
+                  message: 'Digite seu melhor e-mail!',
                 },
               ]}
             >
@@ -217,9 +179,14 @@ export default function CreateUser() {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Password!',
+                  message: 'Digite sua senha!',
+                },
+                {
+                  min: 8,
+                  message: 'Sua senha deve ter pelo menos 8 dígitos!',
                 },
               ]}
+              hasFeedback
             >
               <Input.Password
                 prefix={<LockOutlined />}
@@ -227,28 +194,40 @@ export default function CreateUser() {
                 placeholder="Digite sua senha"
               />
             </Form.Item>
-            {/* <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-                <a style={{ float: 'right' }} href="">
-                  Esqueceu a senha?
-                </a>
-              </Form.Item> */}
-            <Form.Item style={{ marginBottom: '0px' }}>
+
+            <Form.Item
+              name="confirm"
+              label="Confirme sua senha"
+              dependencies={['password']}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: 'Por favor confirme sua senha!',
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error('As senhas não correspondem.')
+                    );
+                  },
+                }),
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                type="password"
+                placeholder="Confirme sua senha"
+              />
+            </Form.Item>
+
+            <Form.Item style={{ marginBottom: '0px', marginTop: '20px' }}>
               <Button block type="primary" htmlType="submit" loading={loading}>
                 Criar
               </Button>
-              <div
-                style={{
-                  marginTop: token.marginLG,
-                  textAlign: 'center',
-                  width: '100%',
-                }}
-              >
-                {/* <Text style={styles.text}>Não tem uma conta? </Text>{' '}
-                  <Link href="">Inscreva-se agora</Link> */}
-              </div>
             </Form.Item>
           </Form>
         </div>
