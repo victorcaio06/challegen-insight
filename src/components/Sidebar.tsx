@@ -10,7 +10,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Menu, MenuProps } from 'antd';
+import { Menu, MenuProps, message } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -35,38 +35,41 @@ export default function Sidebar() {
       label: 'Produtos/Serviços',
       key: 'app',
       icon: <ProductOutlined />,
+      onClick: () => {
+        message.error('Página não implementada!');
+      },
     },
-    {
-      label: 'Navigation Three - Submenu',
-      key: 'SubMenu',
-      icon: <FileOutlined />,
-      children: [
-        {
-          type: 'group',
-          label: 'Item 1',
-          children: [
-            { label: 'Option 1', key: 'setting:1' },
-            { label: 'Option 2', key: 'setting:2' },
-          ],
-        },
-        {
-          type: 'group',
-          label: 'Item 2',
-          children: [
-            { label: 'Option 3', key: 'setting:3' },
-            { label: 'Option 4', key: 'setting:4' },
-          ],
-        },
-      ],
-    },
-    {
-      key: 'alipay',
-      label: (
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Navigation Four - Link
-        </a>
-      ),
-    },
+    // {
+    //   label: 'Navigation Three - Submenu',
+    //   key: 'SubMenu',
+    //   icon: <FileOutlined />,
+    //   children: [
+    //     {
+    //       type: 'group',
+    //       label: 'Item 1',
+    //       children: [
+    //         { label: 'Option 1', key: 'setting:1' },
+    //         { label: 'Option 2', key: 'setting:2' },
+    //       ],
+    //     },
+    //     {
+    //       type: 'group',
+    //       label: 'Item 2',
+    //       children: [
+    //         { label: 'Option 3', key: 'setting:3' },
+    //         { label: 'Option 4', key: 'setting:4' },
+    //       ],
+    //     },
+    //   ],
+    // },
+    // {
+    //   key: 'alipay',
+    //   label: (
+    //     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
+    //       Navigation Four - Link
+    //     </a>
+    //   ),
+    // },
   ];
 
   function mobileTriggerStyle(isMobile: boolean) {
