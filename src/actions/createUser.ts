@@ -7,12 +7,6 @@ interface UserData {
 }
 
 export default async function createUser({ name, email, password }: UserData) {
-  console.log('chegou aqui!!!!!!!!!!!');
-
-  // const name = formData.get('name') as string | null;
-  // const email = formData.get('email') as string | null;
-  // const password = formData.get('password') as string | null;
-
   try {
     if (!name || !email || !password) {
       throw new Error('Name, email and password are required!');
