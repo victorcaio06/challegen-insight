@@ -45,7 +45,7 @@ const SupplierRegistration: React.FC = () => {
     keyPix: string | undefined;
     landline: string | undefined;
     municipalRegistration: string | undefined;
-    nameSupplier: string | undefined;
+    name: string | undefined;
     neighborhood: string | undefined;
     number: string | undefined;
     observations: string | undefined;
@@ -131,7 +131,7 @@ const SupplierRegistration: React.FC = () => {
           >
             <Form.Item
               label="Nome do fornecedor"
-              name="nameSupplier"
+              name="name"
               required
               rules={[{ required: true, message: 'Preencha o campo!' }]}
             >
@@ -531,6 +531,12 @@ const SupplierRegistration: React.FC = () => {
           <Form.Item {...buttonItemLayout}>
             <Button type="primary" htmlType="submit" loading={loading}>
               Adicionar fornecedor
+            </Button>
+          </Form.Item>
+
+          <Form.Item {...buttonItemLayout} style={{ marginLeft: '30px' }}>
+            <Button type="primary" danger onClick={() => router.back()}>
+              Cancelar
             </Button>
           </Form.Item>
         </div>

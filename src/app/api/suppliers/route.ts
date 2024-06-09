@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: Request) {
   const body = (await request.json()) as SupplierData;
 
-  if (!body.nameSupplier) {
+  if (!body.name) {
     return NextResponse.json(
       {
         success: false,
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   try {
     const supplier = await prisma.supplier.create({
       data: {
-        name: body.nameSupplier,
+        name: body.name,
         state_registration: body.stateRegistration,
         municipal_registration: body.municipalRegistration,
         cnpj: body.cnpj,
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: true,
-          message: 'Criado fornecedor com sucesso!',
+          message: 'Fornecedor criado com sucesso!',
           data: supplier,
         },
         { status: 201 }
@@ -74,10 +74,11 @@ export async function POST(request: Request) {
 
 export async function GET() {
   const suppliers = await prisma.supplier.findMany();
+
   return NextResponse.json(
     {
       success: true,
-      message: 'List Data Suppliers',
+      message: 'Lista de fornecedores!',
       data: suppliers,
     },
     {
