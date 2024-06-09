@@ -15,12 +15,14 @@ export interface SupplierData {
   keyPix: string | undefined;
   landline: string | undefined;
   municipalRegistration: string | undefined;
-  nameSupplier: string | undefined;
+  name: string | undefined;
   neighborhood: string;
   number: string;
   observations: string | undefined;
   state: string;
   stateRegistration: string | undefined;
+  updated_at: string;
+  id?: string;
 }
 
 export default async function createSupplier(data: SupplierData) {
@@ -38,7 +40,7 @@ export default async function createSupplier(data: SupplierData) {
       !data.number ||
       !data.state
     ) {
-      throw new Error('Preencha os campos obrigatórios!!');
+      throw new Error('Preencha os campos obrigatórios!');
     }
 
     const response = await fetch('http://localhost:3000/api/suppliers', {
@@ -51,12 +53,11 @@ export default async function createSupplier(data: SupplierData) {
     });
 
     if (!response.ok) {
-      const data = await response.json();
-
       throw new Error('Erro ao criar o usuário, tente novamente');
     }
 
     const dataResponse = await response.json();
+
     if (response.ok) {
       return {
         data: dataResponse,
@@ -69,13 +70,13 @@ export default async function createSupplier(data: SupplierData) {
       return {
         data: null,
         ok: false,
-        error: e.message ?? 'Erro ao criar o usuário, tente novamente',
+        error: e.message ?? 'Erro ao criar o usuário, tente novamente!',
       };
     } else {
       return {
         data: null,
         ok: false,
-        error: 'Erro ao criar o usuário, tente novamente',
+        error: 'Erro ao criar o usuário, tente novamente!',
       };
     }
   }
