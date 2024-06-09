@@ -23,17 +23,6 @@ export default function AppHeader() {
 
   const items: MenuProps['items'] = [
     {
-      label: <a href="https://www.antgroup.com">1st menu item</a>,
-      key: '0',
-    },
-    {
-      label: <a href="https://www.aliyun.com">2nd menu item</a>,
-      key: '1',
-    },
-    {
-      type: 'divider',
-    },
-    {
       icon: <LogoutOutlined spin={loading} />,
       onClick: async () => {
         setLoading(true);
@@ -55,8 +44,7 @@ export default function AppHeader() {
         justifyContent: 'center',
         justifyItems: 'center',
         justifySelf: 'center',
-        margin: '0 auto',
-        paddingLeft: '37px',
+        margin: '0 0',
         textAlign: 'start',
       },
     },
