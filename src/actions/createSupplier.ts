@@ -1,29 +1,6 @@
 'use server';
 
-export interface SupplierData {
-  accountBank: string;
-  accountType: string;
-  agency: string;
-  bank: string;
-  cellPhone: string;
-  city: string;
-  cnpj: string | undefined;
-  contactPerson: string;
-  contactPosition: string | undefined;
-  cpf: string | undefined;
-  publicPlace: string;
-  keyPix: string | undefined;
-  landline: string | undefined;
-  municipalRegistration: string | undefined;
-  name: string | undefined;
-  neighborhood: string;
-  number: string;
-  observations: string | undefined;
-  state: string;
-  stateRegistration: string | undefined;
-  updated_at: string;
-  id?: string;
-}
+import { SupplierData } from '@/utils/supplierDataTypes';
 
 export default async function createSupplier(data: SupplierData) {
   try {

@@ -1,6 +1,6 @@
-import { SupplierData } from '@/actions/createSupplier';
 import prisma from '@/databases/prisma/prismaClient';
-import { NextRequest, NextResponse } from 'next/server';
+import { SupplierData } from '@/utils/supplierDataTypes';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   const body = (await request.json()) as SupplierData;

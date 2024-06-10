@@ -1,6 +1,6 @@
 'use client';
 
-import { SupplierData } from '@/actions/createSupplier';
+import { SupplierData } from '@/utils/supplierDataTypes';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Grid, Popconfirm, Space, Table, message, theme } from 'antd';
 import { format } from 'date-fns';
@@ -102,8 +102,6 @@ const ListSuppliers: React.FC<ListSuppliersProps> = (props) => {
         title="Ações"
         key="action"
         render={(_: any, record: SupplierData) => {
-          console.log('🚀 ~ record:', record);
-
           if (record.id === undefined) {
             return (
               <Space size="middle">

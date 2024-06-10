@@ -1,7 +1,8 @@
 'use client';
 
-import createSupplier, { SupplierData } from '@/actions/createSupplier';
+import createSupplier from '@/actions/createSupplier';
 import { brazilianStates } from '@/utils/brazilianStates';
+import { SupplierData } from '@/utils/supplierDataTypes';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import {
   Button,
@@ -201,7 +202,7 @@ const SupplierRegistration: React.FC = () => {
                 icon: <InfoCircleOutlined />,
               }}
             >
-              <Input placeholder="input placeholder" />
+              <Input />
             </Form.Item>
           </Col>
         </Row>
