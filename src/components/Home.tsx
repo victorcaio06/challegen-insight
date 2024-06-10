@@ -1,65 +1,18 @@
 'use client';
 
 import { UserOutlined } from '@ant-design/icons';
-import { Button, Grid, Layout, Menu, MenuProps, message, theme } from 'antd';
+import { Button, Grid, Layout, Menu, theme } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
+import Title from 'antd/es/typography/Title';
 
-type MenuItem = Required<MenuProps>['items'][number];
 const { useBreakpoint } = Grid;
 
 export default function Home() {
   const screens = useBreakpoint();
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
-
-  const items: MenuItem[] = [
-    {
-      label: 'Contato',
-      key: 'contact',
-      // icon: <DatabaseOutlined />,
-      onClick: () => {
-        message.error('Página não implementada!');
-      },
-    },
-    // {
-    //   label: 'Produtos/Serviços',
-    //   key: 'app',
-    //   // icon: <ProductOutlined />,
-    // },
-    // {
-    //   label: 'Navigation Three - Submenu',
-    //   key: 'SubMenu',
-    //   // icon: <FileOutlined />,
-    //   children: [
-    //     {
-    //       type: 'group',
-    //       label: 'Item 1',
-    //       children: [
-    //         { label: 'Option 1', key: 'setting:1' },
-    //         { label: 'Option 2', key: 'setting:2' },
-    //       ],
-    //     },
-    //     {
-    //       type: 'group',
-    //       label: 'Item 2',
-    //       children: [
-    //         { label: 'Option 3', key: 'setting:3' },
-    //         { label: 'Option 4', key: 'setting:4' },
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   key: 'alipay',
-    //   label: (
-    //     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-    //       Navigation Four - Link
-    //     </a>
-    //   ),
-    // },
-  ];
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -69,7 +22,6 @@ export default function Home() {
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['0']}
-          items={items}
           style={{ flex: 1, minWidth: 0 }}
         />
         <Button icon={<UserOutlined />} iconPosition="start" href="/login">
@@ -82,14 +34,25 @@ export default function Home() {
             background: colorBgContainer,
             minHeight: screens.xs ? '591px' : '678px',
             padding: 24,
-            // borderRadius: borderRadiusLG,
             backgroundImage:
               'url("/business-people-shaking-hands-together.jpg")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            // backgroundRepeat: 'no-repeat',
           }}
-        ></div>
+        >
+          <Title
+            style={{
+              color: 'black',
+              marginTop: '100px',
+              marginLeft: '50px',
+              textAlign: 'left',
+            }}
+            level={1}
+          >
+            A UM CLICK DOS SEUS <br />
+            FORNECEDORES
+          </Title>
+        </div>
       </Content>
     </Layout>
   );
