@@ -180,14 +180,6 @@ export default function App() {
                   placeholder="Password"
                 />
               </Form.Item>
-              <Form.Item>
-                {/* <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item> */}
-                <a style={{ float: 'right' }} href="">
-                  Esqueceu a senha?
-                </a>
-              </Form.Item>
               <Form.Item style={{ marginBottom: '0px' }}>
                 <Button
                   block
