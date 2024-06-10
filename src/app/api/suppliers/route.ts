@@ -1,3 +1,5 @@
+'use server';
+
 import prisma from '@/databases/prisma/prismaClient';
 import { SupplierData } from '@/utils/supplierDataTypes';
 import { NextResponse } from 'next/server';
