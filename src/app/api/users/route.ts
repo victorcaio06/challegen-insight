@@ -11,7 +11,6 @@ export async function POST(request: Request) {
   //get request
   const { name, email, password } = (await request.json()) as UserBody;
 
-  console.log('🚀 ~ POST ~ name, email, password:', name, email, password);
 
   if (!name || !email || !password) {
     return NextResponse.json(

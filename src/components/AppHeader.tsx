@@ -10,12 +10,14 @@ import { useEffect, useState } from 'react';
 
 export default function AppHeader() {
   const [loading, setLoading] = useState(false);
+
+  const [session, setSession] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
     const session = async () => {
       const session = await getSession();
-      console.log('🚀 ~ session ~ session:', session);
+      setSession(session);
     };
 
     session();
@@ -63,7 +65,7 @@ export default function AppHeader() {
         arrow={{ pointAtCenter: true }}
       >
         <Button type="text" iconPosition="end" icon={<UserOutlined />}>
-          User
+          {session?.user.name}
         </Button>
       </Dropdown>
     </Header>

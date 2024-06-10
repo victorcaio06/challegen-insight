@@ -24,7 +24,6 @@ export default async function createUser({ name, email, password }: UserData) {
       }),
     });
 
-    console.log('🚀 ~ createUser ~ response:', response);
     if (!response.ok) {
       throw new Error('Erro ao criar o usuário, tente novamente');
     }
