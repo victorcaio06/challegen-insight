@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     if (supplier) {
       //return response JSON
-      return NextResponse.json(
+      return Response.json(
         {
           success: true,
           message: 'Fornecedor criado com sucesso!',
