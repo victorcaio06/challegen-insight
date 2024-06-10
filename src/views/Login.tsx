@@ -10,6 +10,7 @@ import {
   FormProps,
   Grid,
   Input,
+  message,
   theme,
   Typography,
 } from 'antd';
@@ -41,7 +42,8 @@ export default function App() {
     const response = await login(values.email, values.password);
 
     if (response?.error !== '') {
-      alert(response?.error);
+      message.error('Erro ao realizar o login, tente novamente!');
+
       setLoading(false);
     } else if (response.data !== null && response.ok) {
       setLoading(false);
