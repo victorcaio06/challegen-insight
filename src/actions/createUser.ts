@@ -24,14 +24,19 @@ export default async function createUser({ name, email, password }: UserData) {
           email,
           password,
         }),
+        cache: 'no-store',
       }
     );
 
     if (!response.ok) {
+      console.log('🚀 ~ createUser ~ response:', await response.json());
       throw new Error('Erro ao criar o usuário, tente novamente');
     }
 
     const data = await response.json();
+
+    console.log('🚀 ~ createUser ~ data:', data);
+
     if (response.ok) {
       return {
         data,

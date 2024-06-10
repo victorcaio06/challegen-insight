@@ -8,6 +8,7 @@ interface UserBody {
 }
 
 export async function POST(request: Request) {
+  console.log('Chegou muito aqui');
   try {
     //get request
     const { name, email, password } = (await request.json()) as UserBody;
@@ -17,6 +18,21 @@ export async function POST(request: Request) {
         {
           success: false,
           message: 'Name, email and password are required!',
+          data: '',
+        },
+        { status: 400 }
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if(user) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Email already exists!',
           data: '',
         },
         { status: 400 }
@@ -34,12 +50,13 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Usuario criado com sucesso!',
+        message: 'Usuário criado com sucesso!',
         data: data,
       },
       { status: 201 }
     );
   } catch (error) {
+    console.log('🚀 ~ POST ~ error:', error);
     return NextResponse.json(
       {
         success: false,
