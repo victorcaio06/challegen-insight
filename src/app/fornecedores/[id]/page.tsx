@@ -8,27 +8,30 @@ export default async function EditSupplierPage({
   params: { id: string };
 }) {
   async function getSupplier(id: string) {
-    // TODO: Colocar em um try catch
-    const response = await fetch(
-      'https://challegen-insight.vercel.app/suppliers/' + id,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        cache: 'no-store',
-      }
-    );
+    try {
+      const response = await fetch(
+        'https://challegen-insight.vercel.app/api/suppliers/' + id,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          cache: 'no-store',
+        }
+      );
 
-    if (!response.ok) {
+      if (!response.ok) {
+        return null;
+      }
+
+      const data = await response.json();
+
+      const dataType = data.data as SupplierData;
+
+      return { data: dataType };
+    } catch (error) {
       return null;
     }
-
-    const data = await response.json();
-
-    const dataType = data.data as SupplierData;
-
-    return { data: dataType };
   }
 
   const data = await getSupplier(params.id);
