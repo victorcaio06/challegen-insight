@@ -35,8 +35,9 @@ export default function CreateUser() {
 
     // setData(response);
     if (response?.error !== '') {
-      console.log('🚀 ~ onFinish ~ response?.error:', response?.error);
-      message.error('Erro ao criar o usuário, tente novamente!');
+      message.error(
+        response?.error ?? 'Erro ao criar o usuário, tente novamente!'
+      );
       setLoading(false);
     } else if (response.data !== null && response.ok) {
       setLoading(false);

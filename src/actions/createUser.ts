@@ -29,13 +29,15 @@ export default async function createUser({ name, email, password }: UserData) {
     );
 
     if (!response.ok) {
-      console.log('🚀 ~ createUser ~ response:', await response.json());
+      const data = await response.json();
+
+      if (data.message === 'Email already exists!') {
+        throw new Error('Email already exists!');
+      }
       throw new Error('Erro ao criar o usuário, tente novamente');
     }
 
     const data = await response.json();
-
-    console.log('🚀 ~ createUser ~ data:', data);
 
     if (response.ok) {
       return {

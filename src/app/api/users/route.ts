@@ -8,7 +8,6 @@ interface UserBody {
 }
 
 export async function POST(request: Request) {
-  console.log('Chegou muito aqui');
   try {
     //get request
     const { name, email, password } = (await request.json()) as UserBody;
@@ -28,7 +27,7 @@ export async function POST(request: Request) {
       where: { email },
     });
 
-    if(user) {
+    if (user) {
       return NextResponse.json(
         {
           success: false,
@@ -56,7 +55,6 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log('🚀 ~ POST ~ error:', error);
     return NextResponse.json(
       {
         success: false,
