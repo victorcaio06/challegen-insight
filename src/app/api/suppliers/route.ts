@@ -57,11 +57,14 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     if (error instanceof Error) {
-      return {
-        success: false,
-        message: error.message ?? 'ERROR: tente novamente!',
-        data: null,
-      };
+      return NextResponse.json(
+        {
+          success: false,
+          message: error.message ?? 'ERROR: tente novamente!',
+          data: null,
+        },
+        { status: 400 }
+      );
     }
     return NextResponse.json(
       {
