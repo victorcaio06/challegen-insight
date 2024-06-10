@@ -16,7 +16,11 @@ export default function SuppliersListHeader() {
         style={{ marginBottom: '20px', marginTop: '10px', width: '100%' }}
         // vertical={screen.xs}
       >
-        <Title level={screen.xs ? 4 : 3} style={{ marginLeft: '35px' }}>
+        <Title
+          ellipsis
+          level={screen.xs ? 4 : 3}
+          style={{ marginLeft: '35px' }}
+        >
           Fornecedores
         </Title>
 
