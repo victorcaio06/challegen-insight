@@ -20,17 +20,20 @@ export default async function createSupplier(data: SupplierData) {
       throw new Error('Preencha os campos obrigatórios!');
     }
 
-    const response = await fetch('https://challegen-insight.vercel.app/api/suppliers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...data }),
-      cache: 'no-store',
-    });
+    const response = await fetch(
+      'https://challegen-insight.vercel.app/api/suppliers',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...data }),
+        cache: 'no-store',
+      }
+    );
 
     if (!response.ok) {
-      throw new Error('Erro ao criar o usuário, tente novamente');
+      throw new Error('Erro ao criar o fornecedor, tente novamente');
     }
 
     const dataResponse = await response.json();
@@ -47,13 +50,13 @@ export default async function createSupplier(data: SupplierData) {
       return {
         data: null,
         ok: false,
-        error: e.message ?? 'Erro ao criar o usuário, tente novamente!',
+        error: e.message ?? 'Erro ao criar o fornecedor, tente novamente!',
       };
     } else {
       return {
         data: null,
         ok: false,
-        error: 'Erro ao criar o usuário, tente novamente!',
+        error: 'Erro ao criar o fornecedor, tente novamente!',
       };
     }
   }
