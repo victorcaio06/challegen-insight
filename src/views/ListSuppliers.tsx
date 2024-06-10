@@ -24,7 +24,7 @@ const ListSuppliers: React.FC<ListSuppliersProps> = (props) => {
 
   async function handleDeleteSupplier(id: string) {
     const deleteSupplier = await fetch(
-      `http://localhost:3000/api/suppliers/${id}`,
+      `https://challegen-insight.vercel.app/suppliers/${id}`,
       {
         method: 'DELETE',
         headers: {

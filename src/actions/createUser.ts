@@ -12,7 +12,7 @@ export default async function createUser({ name, email, password }: UserData) {
       throw new Error('Name, email and password are required!');
     }
 
-    const response = await fetch('http://localhost:3000/api/users', {
+    const response = await fetch('https://challegen-insight.vercel.app//api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

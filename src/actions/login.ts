@@ -24,7 +24,7 @@ export async function decrypt(input: string): Promise<any> {
 
 export async function login(email: string, password: string) {
   try {
-    const response = await fetch('http://localhost:3000/api/login', {
+    const response = await fetch('https://challegen-insight.vercel.app/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

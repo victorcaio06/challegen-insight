@@ -20,7 +20,7 @@ export default async function createSupplier(data: SupplierData) {
       throw new Error('Preencha os campos obrigatórios!');
     }
 
-    const response = await fetch('http://localhost:3000/api/suppliers', {
+    const response = await fetch('https://challegen-insight.vercel.app/api/suppliers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

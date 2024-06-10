@@ -49,7 +49,7 @@ const EditSupplier: React.FC<EditSupplierProps> = (
     const valuesToPut = rest;
 
     const response = await fetch(
-      'http://localhost:3000/api/suppliers/' + props.data.id,
+      'https://challegen-insight.vercel.app/api/suppliers/' + props.data.id,
       {
         method: 'PUT',
         headers: {

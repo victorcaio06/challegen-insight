@@ -12,7 +12,7 @@ let loading = true;
 
 async function getListSuppliers() {
   // TODO: Colocar em um try catch
-  const response = await fetch('http://localhost:3000/api/suppliers', {
+  const response = await fetch('https://challegen-insight.vercel.app/api/suppliers', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
