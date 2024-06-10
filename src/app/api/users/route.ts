@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: 'Email already exists!',
+          message: 'E-mail já existe! Por favor, escolha outro.',
           data: '',
         },
         { status: 400 }
