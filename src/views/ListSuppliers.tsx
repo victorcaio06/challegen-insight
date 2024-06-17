@@ -18,10 +18,6 @@ const ListSuppliers: React.FC<ListSuppliersProps> = (props) => {
   const screen = useBreakpoint();
   const router = useRouter();
 
-  props.data.map((supplier) => {
-    supplier.updated_at = format(supplier.updated_at, 'dd/MM/yyyy HH:mm');
-  });
-
   async function handleDeleteSupplier(id: string) {
     const deleteSupplier = await fetch(
       `https://challegen-insight.vercel.app/api/suppliers/${id}`,
@@ -76,21 +72,9 @@ const ListSuppliers: React.FC<ListSuppliersProps> = (props) => {
         key="updated_at"
         responsive={['md', 'lg']}
         align="center"
-        // render={(tags: string[]) => (
-        //   <>
-        //     {tags.map((tag) => {
-        //       let color = tag.length > 5 ? 'geekblue' : 'green';
-        //       if (tag === 'loser') {
-        //         color = 'volcano';
-        //       }
-        //       return (
-        //         <Tag color={color} key={tag}>
-        //           {tag.toUpperCase()}
-        //         </Tag>
-        //       );
-        //     })}
-        //   </> cell_phone
-        // )}
+        render={(updated_at: string) => (
+          <>{format(updated_at, 'dd/MM/yyyy HH:mm')}</>
+        )}
       />
       <Column
         title="Telefone"
